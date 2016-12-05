@@ -47,10 +47,9 @@
         return retIndex;
     }
 
-    pinyinArea.changeWord = function (area, cursor, key) {
+    pinyinArea.changeWord = function (value, cursor, key) {
         // todo search for other word separators
-        var value = area.value,
-            valueTilCursor = value.slice(0, cursor),
+        var valueTilCursor = value.slice(0, cursor),
             lastSpace = valueTilCursor.lastIndexOf(" "),
             lastNewline = valueTilCursor.lastIndexOf("\n"),
             beginningOfLastWord = Math.max(lastSpace, lastNewline) + 1,
@@ -70,8 +69,7 @@
         if (strippedWord !== word) {
             cursor += 1;
         }
-        area.setSelectionRange(cursor, cursor);
-        return newValue;
+        return [newValue, cursor];
     };
 
     pinyinArea.pinyinify = function (textarea) {
@@ -90,7 +88,9 @@
                 this.setSelectionRange(cursorPosition, cursorPosition);
                 return false;
             } else if (key !== ":") {
-                this.value = changeWord(this, cursorPosition, key);
+                var ret = pinyinArea.changeWord(this.value, cursorPosition, key);
+                this.value = ret[0];
+                this.setSelectionRange(ret[1], ret[1]);
                 return false;
             }
         };
