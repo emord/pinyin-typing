@@ -56,17 +56,19 @@
             word = value.slice(beginningOfLastWord, cursor),
             strippedWord = stripCurrentAccents(word),
             idx = indexOfVowelToChange(strippedWord),
-            newValue = "";
-        newValue += value.slice(0, beginningOfLastWord);
+            newValue = "", newWord= "";
         if (idx !== -1) {
-            newValue += strippedWord.slice(0, idx+1);
-            newValue += MODIFIERS[key];
-            newValue += strippedWord.slice(idx+1);
+            newWord += strippedWord.slice(0, idx+1);
+            newWord += MODIFIERS[key];
+            newWord += strippedWord.slice(idx+1);
         } else {
-            newValue += word + key;
+            newWord += word + key;
         }
+        newValue += value.slice(0, beginningOfLastWord);
+        newValue += newWord;
         newValue += value.slice(cursor);
-        if (strippedWord !== word) {
+        if (newWord.length !== word.length) {
+            // advances cursor when adding accent
             cursor += 1;
         }
         return [newValue, cursor];
