@@ -72,7 +72,7 @@
         }
         area.setSelectionRange(cursor, cursor);
         return newValue;
-    }
+    };
 
     pinyinArea.pinyinify = function (textarea) {
         textarea.onkeypress = function (oEvent) {
@@ -94,7 +94,7 @@
                 return false;
             }
         };
-    }
+    };
 
     if( typeof exports !== 'undefined' ) {
         if( typeof module !== 'undefined' && module.exports ) {
