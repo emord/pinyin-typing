@@ -23,7 +23,7 @@
     function indexOfVowelToChange(word) {
         var tmpString = word, tmpIndex, previousIndex, retIndex;
 
-        while (retIndex !== undefined) {
+        while (retIndex === undefined) {
             tmpIndex = tmpString.search(VOWELS);
             if (tmpIndex === -1) {
                 return previousIndex || -1;
