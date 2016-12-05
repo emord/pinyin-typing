@@ -46,7 +46,10 @@ function indexOfVowelToChange(word) {
 function changeWord (area, cursor, key) {
     // todo search for other word separators
     var value = area.value,
-        beginningOfLastWord = value.slice(0, cursor).lastIndexOf(" ") + 1,
+        valueTilCursor = value.slice(0, cursor),
+        lastSpace = valueTilCursor.lastIndexOf(" "),
+        lastNewline = valueTilCursor.lastIndexOf("\n"),
+        beginningOfLastWord = Math.max(lastSpace, lastNewline) + 1,
         word = value.slice(beginningOfLastWord, cursor),
         strippedWord = stripCurrentAccents(word),
         idx = indexOfVowelToChange(strippedWord),
