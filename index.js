@@ -29,8 +29,12 @@
                 return previousIndex || -1;
             }
             if ("iu\u00fc".includes(tmpString[tmpIndex])) {
-                tmpString = tmpString.slice(tmpIndex + 1);
-                previousIndex = tmpIndex;
+                if (previousIndex) {
+                    tmpString = tmpString.slice(tmpIndex + 1);
+                    previousIndex = tmpIndex;
+                } else {
+                    retIndex = tmpIndex + 1;
+                }
             } else {
                 if (tmpIndex !== -1) {
                     if (previousIndex) {
