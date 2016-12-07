@@ -21,34 +21,18 @@
     }
 
     function indexOfVowelToChange(word) {
-        var tmpString = word, tmpIndex, previousIndex, retIndex;
+        var firstVowelIndex = word.search(VOWELS),
+            secondVowelIndex = -1;
 
-        while (retIndex === undefined) {
-            tmpIndex = tmpString.search(VOWELS);
-            if (tmpIndex === -1) {
-                return previousIndex || -1;
-            }
-            if ("iu\u00fc".includes(tmpString[tmpIndex])) {
-                if (previousIndex) {
-                    tmpString = tmpString.slice(tmpIndex + 1);
-                    previousIndex = tmpIndex;
-                } else {
-                    retIndex = tmpIndex + 1;
-                }
-            } else {
-                if (tmpIndex !== -1) {
-                    if (previousIndex) {
-                        retIndex = tmpIndex + previousIndex + 1;
-                    } else {
-                        retIndex = tmpIndex;
-                    }
-                } else {
-                    ret = previousIndex;
-                }
-            }
+        if (firstVowelIndex !== -1 && /[iu\u00fc]/.test(word[firstVowelIndex])) {
+            secondVowelIndex = word.slice(firstVowelIndex+1).search(VOWELS);
         }
 
-        return retIndex;
+        if (secondVowelIndex !== -1) {
+            return secondVowelIndex + firstVowelIndex + 1;
+        }
+
+        return firstVowelIndex;
     }
 
     pinyinArea.changeWord = function (value, cursor, key) {

@@ -17,4 +17,8 @@ describe('pinyinArea', function () {
     it("should change dui4 to dui with accent", function () {
         assert.deepEqual(pinyinArea.changeWord("dui", 3, '4'), ["dui\u0300", 4]);
     });
+
+    it("should change qing3 to qing with accent", function () {
+        assert.deepEqual(pinyinArea.changeWord("qing", 3, '3'), ["qi\u030Cng", 4]);
+    });
 });
